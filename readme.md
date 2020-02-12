@@ -11,6 +11,7 @@ Everything from RustDedicated_Data\Managed would be available, so you can add re
 Requirements:
 * _Windows 10 v1803 or higher_
 * _Microsoft Visual Studio 2017_
+* _.NET Framework 4.6.1_
 
 
 ### Credits:

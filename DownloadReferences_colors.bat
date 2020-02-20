@@ -38,7 +38,7 @@ echo %ESC%[96mGetting latest OxideMod Github release data%ESC%[0m
 curl https://api.github.com/repos/OxideMod/Oxide.Rust/releases/latest -o %githubdata%\OxideMod.latest
 for /f tokens^=4^ delims^=^" %%a in ('findstr tag_name %githubdata%\OxideMod.latest') do (
   set oxidemod_tagname=%%a
-  set oxidemod_name=Oxide.Rust.%oxidemod_tagname%.zip
+  set oxidemod_name=Oxide.Rust.%%a.zip
 )
 
 IF NOT EXIST %oxidemod_archive%\ (

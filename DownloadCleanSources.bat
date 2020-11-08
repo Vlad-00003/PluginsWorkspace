@@ -39,6 +39,9 @@ IF EXIST "%clearSources%\%managed%\OxidePatcher.exe" (
 echo Getting latest version of Rust.obj
 curl -L https://raw.githubusercontent.com/OxideMod/Oxide.Rust/develop/resources/Rust.opj -o%clearSources%\%managed%\Rust.opj 
 
+echo Deleting old _original
+del /s /q %clearSources%\%managed%\*_original*
+
 echo Done.
 
 :End

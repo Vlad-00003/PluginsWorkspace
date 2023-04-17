@@ -30,25 +30,6 @@ IF EXIST "%depotdownloader_archive%\%depotdownloader_name%" (
   curl -L %depotdownloader_link% -o %depotdownloader_archive%\%depotdownloader_name%
 )
 
-echo Getting latest OxideMod Github release data 
-curl https://api.github.com/repos/OxideMod/Oxide.Rust/releases/latest -o %githubdata%\OxideMod.latest
-for /f tokens^=4^ delims^=^" %%a in ('findstr tag_name %githubdata%\OxideMod.latest') do (
-  set oxidemod_tagname=%%a
-  set oxidemod_name=Oxide.Rust.%%a.zip
-)
-
-IF NOT EXIST %oxidemod_archive%\ (
-  echo Creating OxideMod archive folder
-  mkdir %oxidemod_archive%
-)
-
-IF EXIST "%oxidemod_archive%\%oxidemod_name%" (
-  echo Latest version already downloaded
-) ELSE (
-  echo Downloading latest OxideMod: %oxidemod_tagname%
-  curl -L https://github.com/OxideMod/Oxide.Rust/releases/download/%oxidemod_tagname%/Oxide.Rust.zip -o %oxidemod_archive%\%oxidemod_name%
-)
-
 IF NOT EXIST %depotdownloader_extracted%\ (
   echo Creating DepotDownloader folder
   mkdir %depotdownloader_extracted%
@@ -74,8 +55,7 @@ echo Downloading latest version of server dll's
 dotnet %depotdownloader_extracted%\DepotDownloader.dll -app 258550 -depot 258551 -dir %references% -filelist .references -validate
 
 echo Extracting latest OxideMod version
-cd %references%
-tar -xf ..\%oxidemod_archive%\%oxidemod_name% *.dll
+OxideDownloader.exe -extract %references%
 if errorlevel 1 (
   echo Failed to unzip OxideMod archive! 
   exit /b %errorlevel%

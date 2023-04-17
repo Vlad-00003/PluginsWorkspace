@@ -334,3 +334,6 @@ Archives/
 DepotDownloader/
 GithubData/
 References/
+
+# Ignore OxideDownloader (As it needs to be a part of repo)
+!OxideDownloader.exe

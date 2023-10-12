@@ -19,9 +19,12 @@ IF NOT EXIST %githubdata%\ (
 
 echo %ESC%[96mGetting latest DepotDownloader Github release data%ESC%[0m
 curl https://api.github.com/repos/SteamRE/DepotDownloader/releases/latest -o %githubdata%\DepotDownloader.latest
-for /f tokens^=4^ delims^=^" %%a in ('findstr browser_download_url %githubdata%\DepotDownloader.latest') do set depotdownloader_link=%%a
-for /f tokens^=4^ delims^=^" %%a in ('findstr name %githubdata%\DepotDownloader.latest') do set depotdownloader_name=%%a
-
+for /f tokens^=4^ delims^=^" %%a in ('findstr browser_download_url %githubdata%\DepotDownloader.latest') do (
+	set depotdownloader_link=%%a
+	goto :depotdownloader_link_set
+)
+:depotdownloader_link_set
+set depotdownloader_name=%depotdownloader_link:~-25%
 IF NOT EXIST %depotdownloader_archive%\ (
   echo %ESC%[93mCreating DepotDownloader archive folder%ESC%[0m
   mkdir %depotdownloader_archive%
